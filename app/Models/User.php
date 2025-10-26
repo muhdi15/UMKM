@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id',
     ];
 
     /**
@@ -46,4 +47,41 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+      // Relasi ke Role
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    // Relasi ke Seller
+    public function seller()
+    {
+        return $this->hasOne(Seller::class, 'user_id');
+    }
+
+    // Relasi ke Order (pembeli)
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'user_id');
+    }
+
+    // Relasi ke Cart
+    public function carts()
+    {
+        return $this->hasMany(Cart::class, 'user_id');
+    }
+
+    // Relasi ke Review
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'user_id');
+    }
+
+    // Relasi ke Alamat
+    public function addresses()
+    {
+        return $this->hasMany(UserAddress::class, 'user_id');
+    }
+
 }
