@@ -2,22 +2,249 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use App\Models\{
+    Role, User, Seller, Category, Product, Cart,
+    Order, OrderDetail, Review, Payment, UserAddress
+};
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
+        /**
+         * 1️⃣ Roles
+         */
+        Role::insert([
+            ['name' => 'admin_sistem'],
+            ['name' => 'seller'],
+            ['name' => 'user'],
+        ]);
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        /**
+         * 2️⃣ Users
+         */
+        User::insert([
+            [
+                'name' => 'Admin Sistem',
+                'email' => 'admin@example.com',
+                'role_id' => 1,
+                'password' => Hash::make('password'),
+            ],
+            [
+                'name' => 'Toko Maju Seller',
+                'email' => 'seller@example.com',
+                'role_id' => 2,
+                'password' => Hash::make('password'),
+            ],
+            [
+                'name' => 'Budi Pembeli',
+                'email' => 'budi@example.com',
+                'role_id' => 3,
+                'password' => Hash::make('password'),
+            ],
+        ]);
+
+        /**
+         * 3️⃣ Sellers
+         */
+        Seller::insert([
+            [
+                'user_id' => 2,
+                'nama_toko' => 'Toko Elektronik Maju',
+                'deskripsi' => 'Menjual berbagai barang elektronik rumah tangga.',
+                'alamat' => 'Jl. Trans Sulawesi No.45, Majene',
+                'no_telp' => '081234567890',
+                'latitude' => -3.4321000,
+                'longitude' => 119.3332100,
+                'foto_toko' => 'toko_elektronik.jpg',
+                'status' => 'aktif',
+            ],
+            [
+                'user_id' => 2,
+                'nama_toko' => 'Toko Fashion Modern',
+                'deskripsi' => 'Menjual pakaian pria dan wanita kekinian.',
+                'alamat' => 'Jl. Poros Polewali No.21',
+                'no_telp' => '082233445566',
+                'latitude' => -3.4310000,
+                'longitude' => 119.3340000,
+                'foto_toko' => 'toko_fashion.jpg',
+                'status' => 'aktif',
+            ],
+        ]);
+
+        /**
+         * 4️⃣ Categories
+         */
+        Category::insert([
+            [
+                'nama_kategori' => 'Elektronik',
+                'deskripsi' => 'Produk-produk elektronik seperti TV, Kipas, dan kulkas.',
+            ],
+            [
+                'nama_kategori' => 'Fashion',
+                'deskripsi' => 'Pakaian dan aksesoris fashion pria dan wanita.',
+            ],
+        ]);
+
+        /**
+         * 5️⃣ Products
+         */
+        Product::insert([
+            [
+                'seller_id' => 1,
+                'category_id' => 1,
+                'nama_produk' => 'Kipas Angin Cosmos 16 Inch',
+                'deskripsi' => 'Kipas angin dengan 3 kecepatan, hemat listrik.',
+                'harga' => 250000.00,
+                'stok' => 15,
+                'berat' => 3.50,
+                'foto' => 'kipas_cosmos.jpg',
+                'status' => 'aktif',
+            ],
+            [
+                'seller_id' => 2,
+                'category_id' => 2,
+                'nama_produk' => 'Kemeja Pria Lengan Panjang',
+                'deskripsi' => 'Kemeja bahan katun, nyaman dipakai.',
+                'harga' => 175000.00,
+                'stok' => 30,
+                'berat' => 0.40,
+                'foto' => 'kemeja_pria.jpg',
+                'status' => 'aktif',
+            ],
+        ]);
+
+        /**
+         * 6️⃣ Carts
+         */
+        Cart::insert([
+            [
+                'user_id' => 3,
+                'product_id' => 1,
+                'quantity' => 1,
+            ],
+            [
+                'user_id' => 3,
+                'product_id' => 2,
+                'quantity' => 2,
+            ],
+        ]);
+
+        /**
+         * 7️⃣ Orders
+         */
+        Order::insert([
+            [
+                'user_id' => 3,
+                'seller_id' => 1,
+                'kode_order' => 'ORD-' . Str::upper(Str::random(8)),
+                'total_harga' => 250000.00,
+                'ongkir' => 15000.00,
+                'metode_pembayaran' => 'transfer',
+                'status_pembayaran' => 'dibayar',
+                'status_order' => 'dikirim',
+                'alamat_pengiriman' => 'Jl. Trans Sulawesi No.88, Majene',
+                'catatan' => 'Mohon dikirim siang hari.',
+            ],
+            [
+                'user_id' => 3,
+                'seller_id' => 2,
+                'kode_order' => 'ORD-' . Str::upper(Str::random(8)),
+                'total_harga' => 350000.00,
+                'ongkir' => 20000.00,
+                'metode_pembayaran' => 'cod',
+                'status_pembayaran' => 'pending',
+                'status_order' => 'diproses',
+                'alamat_pengiriman' => 'Jl. Poros Majene No.45',
+                'catatan' => null,
+            ],
+        ]);
+
+        /**
+         * 8️⃣ Order Details
+         */
+        OrderDetail::insert([
+            [
+                'order_id' => 1,
+                'product_id' => 1,
+                'harga_satuan' => 250000.00,
+                'quantity' => 1,
+                'subtotal' => 250000.00,
+            ],
+            [
+                'order_id' => 2,
+                'product_id' => 2,
+                'harga_satuan' => 175000.00,
+                'quantity' => 2,
+                'subtotal' => 350000.00,
+            ],
+        ]);
+
+        /**
+         * 9️⃣ Reviews
+         */
+        Review::insert([
+            [
+                'product_id' => 1,
+                'user_id' => 3,
+                'rating' => 5,
+                'komentar' => 'Produk sesuai deskripsi dan berfungsi dengan baik.',
+            ],
+            [
+                'product_id' => 2,
+                'user_id' => 3,
+                'rating' => 4,
+                'komentar' => 'Bahan bagus, pengiriman cepat.',
+            ],
+        ]);
+
+        /**
+         * 🔟 Payments
+         */
+        Payment::insert([
+            [
+                'order_id' => 1,
+                'metode' => 'transfer',
+                'bukti_bayar' => 'bukti_transfer_1.jpg',
+                'status' => 'valid',
+            ],
+            [
+                'order_id' => 2,
+                'metode' => 'cod',
+                'bukti_bayar' => null,
+                'status' => 'pending',
+            ],
+        ]);
+
+        /**
+         * 11️⃣ User Addresses
+         */
+        UserAddress::insert([
+            [
+                'user_id' => 3,
+                'nama_penerima' => 'Budi Pembeli',
+                'no_telp' => '081233344455',
+                'alamat' => 'Jl. Trans Sulawesi No.88',
+                'provinsi' => 'Sulawesi Barat',
+                'kota' => 'Majene',
+                'kecamatan' => 'Banggae',
+                'kode_pos' => '91412',
+                'is_default' => true,
+            ],
+            [
+                'user_id' => 3,
+                'nama_penerima' => 'Budi Pembeli',
+                'no_telp' => '081233344456',
+                'alamat' => 'Jl. Poros Polewali No.22',
+                'provinsi' => 'Sulawesi Barat',
+                'kota' => 'Polewali Mandar',
+                'kecamatan' => 'Polewali',
+                'kode_pos' => '91413',
+                'is_default' => false,
+            ],
         ]);
     }
 }
