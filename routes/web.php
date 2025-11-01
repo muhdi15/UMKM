@@ -38,4 +38,6 @@ Route::middleware(['auth', 'role:seller'])->prefix('seller')->group(function () 
 // ===================================
 // USER (PEMBELI) ROUTE
 // ===================================
-Route::middleware(['auth', 'role:user'])->prefix('user')->group(function () {});
+Route::middleware(['auth', 'role:user'])->prefix('user')->group(function () {
+    Route::get('/dashboard',[MasterController::class,'userDashboard'])->name('user.dashboard');
+});

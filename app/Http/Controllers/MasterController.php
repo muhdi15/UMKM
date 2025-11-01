@@ -10,6 +10,7 @@ use App\Models\Order;
 use App\Models\Category;
 use App\Models\Seller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MasterController extends Controller
 {
@@ -91,5 +92,46 @@ class MasterController extends Controller
 
         return redirect()->route('admin.seller.index')
             ->with('success', 'Data seller berhasil dihapus.');
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //=========Route for User =========
+
+    public function userDashboard(){
+        return Auth::user()->name;
     }
 }
