@@ -21,27 +21,21 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 // ADMIN ROUTE
 // ===================================
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
-    Route::get('/dashboard',[MasterController::class,'adminDashboard'])->name('admin.dashboard');
-    
+    Route::get('/dashboard', [MasterController::class, 'adminDashboard'])->name('admin.dashboard');
+
     Route::get('/seller', [MasterController::class, 'sellerIndex'])->name('admin.sellers');
     Route::get('/seller/{id}', [MasterController::class, 'sellerShow'])->name('admin.seller.show');
     // routes/web.php
-Route::put('/seller/{id}/status/{status}', [MasterController::class, 'sellerUpdateStatus'])->name('admin.seller.updateStatus');
+    Route::put('/seller/{id}/status/{status}', [MasterController::class, 'sellerUpdateStatus'])->name('admin.seller.updateStatus');
     Route::delete('/seller/{id}', [MasterController::class, 'sellerDestroy'])->name('admin.seller.destroy');
-    
 });
 
 // ===================================
 // SELLER ROUTE
 // ===================================
-Route::middleware(['auth', 'role:seller'])->prefix('seller')->group(function () {
-    
-});
+Route::middleware(['auth', 'role:seller'])->prefix('seller')->group(function () {});
 
 // ===================================
 // USER (PEMBELI) ROUTE
 // ===================================
-Route::middleware(['auth', 'role:user'])->prefix('user')->group(function () {
-   
-});
-
+Route::middleware(['auth', 'role:user'])->prefix('user')->group(function () {});
