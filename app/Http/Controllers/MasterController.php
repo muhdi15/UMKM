@@ -118,14 +118,22 @@ class MasterController extends Controller
         if ($request->filled('status')) {
             $query->where('status', $request->status);
         }
+        $query = Product::with(['seller.user'])->latest();
 
-        // Filter berdasarkan tanggal dibuat
-        if ($request->filled('tanggal_awal') && $request->filled('tanggal_akhir')) {
-            $query->whereBetween('created_at', [$request->tanggal_awal, $request->tanggal_akhir]);
+        if ($request->filled('seller_id')) {
+            $query->where('seller_id', $request->seller_id);
+        }
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        if ($request->filled('tanggal')) {
+            $query->whereDate('created_at', $request->tanggal);
         }
 
         $produk = $query->paginate(10);
-        $sellers = Seller::with('user')->get(); // untuk dropdown filter seller
+        $sellers = Seller::with('user')->get();
 
         return view('admin.seller.produk', compact('produk', 'sellers'));
     }
