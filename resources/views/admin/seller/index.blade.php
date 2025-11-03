@@ -8,8 +8,27 @@
         <h3 class="fw-bold mb-0 text-dark">
             <i class="bx bxs-store-alt text-primary"></i> Manajemen Seller
         </h3>
-        <a href="#" class="btn btn-outline-primary btn-sm disabled" style="cursor: default;">
-            <i class='bx bx-cog'></i> Kelola Seller
+    </div>
+
+    {{-- Navigasi Sub Menu --}}
+    <div class="mb-4 d-flex flex-wrap gap-2">
+        <a href="{{ route('admin.sellers') }}" class="btn btn-sm btn-primary">
+            <i class='bx bx-list-ul'></i> Daftar Seller
+        </a>
+        <a href="{{route('admin.seller.verifikasi')}}" class="btn btn-sm btn-outline-secondary">
+            <i class='bx bx-user-check'></i> Verifikasi Seller
+        </a>
+        <a href="{{route('produk')}}" class="btn btn-sm btn-outline-secondary">
+            <i class='bx bx-package'></i> Produk Seller
+        </a>
+        <a href="#" class="btn btn-sm btn-outline-secondary">
+            <i class='bx bx-map'></i> Peta Lokasi
+        </a>
+        <a href="#" class="btn btn-sm btn-outline-secondary">
+            <i class='bx bx-cart'></i> Pesanan
+        </a>
+        <a href="#" class="btn btn-sm btn-outline-secondary">
+            <i class='bx bx-export'></i> Export Data
         </a>
     </div>
 
@@ -79,7 +98,6 @@
                                         <a href="{{ route('admin.seller.show', $seller->id) }}" class="btn btn-sm btn-info text-white" data-bs-toggle="tooltip" title="Lihat Detail">
                                             <i class='bx bx-show'></i>
                                         </a>
-                                        
                                         <form action="{{ route('admin.seller.destroy', $seller->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus seller ini?')">
                                             @csrf
                                             @method('DELETE')

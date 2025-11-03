@@ -122,31 +122,55 @@
 <body>
 
     <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
-        <div class="logo">
-            <i class='bx bxs-store-alt'></i> UMKM Majene
-        </div>
-
-        <nav class="mt-3">
-            <a href="{{ route('admin.dashboard') }}" class="nav-link active"><i class='bx bxs-dashboard'></i> Dashboard</a>
-            <a href="{{ route('admin.sellers') }}" class="nav-link"><i class='bx bxs-user-badge'></i> Manajemen Seller</a>
-            <a href="" class="nav-link"><i class='bx bxs-user'></i> Manajemen Konsumen</a>
-            <a href="" class="nav-link"><i class='bx bxs-box'></i> Produk</a>
-            <a href="" class="nav-link"><i class='bx bxs-category'></i> Kategori</a>
-            <a href="" class="nav-link"><i class='bx bxs-cart-alt'></i> Pesanan</a>
-            <a href="" class="nav-link"><i class='bx bxs-bar-chart-alt-2'></i> Laporan</a>
-            <a href="" class="nav-link"><i class='bx bxs-cog'></i> Pengaturan</a>
-
-            {{-- <a href="{{ route('admin.dashboard') }}" class="nav-link active"><i class='bx bxs-dashboard'></i> Dashboard</a>
-            <a href="{{ route('admin.sellers') }}" class="nav-link"><i class='bx bxs-user-badge'></i> Manajemen Seller</a>
-            <a href="{{ route('admin.customers') }}" class="nav-link"><i class='bx bxs-user'></i> Manajemen Konsumen</a>
-            <a href="{{ route('admin.products') }}" class="nav-link"><i class='bx bxs-box'></i> Produk</a>
-            <a href="{{ route('admin.categories') }}" class="nav-link"><i class='bx bxs-category'></i> Kategori</a>
-            <a href="{{ route('admin.orders') }}" class="nav-link"><i class='bx bxs-cart-alt'></i> Pesanan</a>
-            <a href="{{ route('admin.reports') }}" class="nav-link"><i class='bx bxs-bar-chart-alt-2'></i> Laporan</a>
-            <a href="{{ route('admin.settings') }}" class="nav-link"><i class='bx bxs-cog'></i> Pengaturan</a> --}}
-        </nav>
+    <!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+    <div class="logo">
+        <i class='bx bxs-store-alt'></i> UMKM Majene
     </div>
+
+    <nav class="mt-3">
+        <a href="{{ route('admin.dashboard') }}" 
+           class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+            <i class='bx bxs-dashboard'></i> Dashboard
+        </a>
+
+        <a href="{{ route('admin.sellers') }}" 
+           class="nav-link {{ request()->routeIs('admin.sellers') || request()->routeIs('admin.seller.show') ? 'active' : '' }}">
+            <i class='bx bxs-user-badge'></i> Manajemen Seller
+        </a>
+
+        <a href="#" 
+           class="nav-link {{ request()->routeIs('admin.customers') ? 'active' : '' }}">
+            <i class='bx bxs-user'></i> Manajemen Konsumen
+        </a>
+
+        <a href="#" 
+           class="nav-link {{ request()->routeIs('admin.products') ? 'active' : '' }}">
+            <i class='bx bxs-box'></i> Produk
+        </a>
+
+        <a href="#" 
+           class="nav-link {{ request()->routeIs('admin.categories') ? 'active' : '' }}">
+            <i class='bx bxs-category'></i> Kategori
+        </a>
+
+        <a href="#" 
+           class="nav-link {{ request()->routeIs('admin.orders') ? 'active' : '' }}">
+            <i class='bx bxs-cart-alt'></i> Pesanan
+        </a>
+
+        <a href="#" 
+           class="nav-link {{ request()->routeIs('admin.reports') ? 'active' : '' }}">
+            <i class='bx bxs-bar-chart-alt-2'></i> Laporan
+        </a>
+
+        <a href="#" 
+           class="nav-link {{ request()->routeIs('admin.settings') ? 'active' : '' }}">
+            <i class='bx bxs-cog'></i> Pengaturan
+        </a>
+    </nav>
+</div>
+
 
     <!-- Content -->
     <div class="content">

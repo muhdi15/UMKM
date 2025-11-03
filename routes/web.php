@@ -24,10 +24,16 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [MasterController::class, 'adminDashboard'])->name('admin.dashboard');
 
     Route::get('/seller', [MasterController::class, 'sellerIndex'])->name('admin.sellers');
+    Route::get('/seller/verifikasi', [MasterController::class, 'sellerVerifikasi'])->name('admin.seller.verifikasi');
     Route::get('/seller/{id}', [MasterController::class, 'sellerShow'])->name('admin.seller.show');
-    // routes/web.php
     Route::put('/seller/{id}/status/{status}', [MasterController::class, 'sellerUpdateStatus'])->name('admin.seller.updateStatus');
     Route::delete('/seller/{id}', [MasterController::class, 'sellerDestroy'])->name('admin.seller.destroy');
+
+    Route::get('/produk', [MasterController::class, 'produkSeller'])->name('produk');
+    Route::delete('/produk/{id}', [MasterController::class, 'destroyProdukSeller'])->name('produk.destroy');
+
+    
+
 });
 
 // ===================================
