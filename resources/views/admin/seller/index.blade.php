@@ -73,7 +73,7 @@
                                         {{ ucfirst($seller->status) }}
                                     </span>
                                 </td>
-                                <td>{{ $seller->created_at->format('d M Y') }}</td>
+                                <td>{{ $seller->created_at ? $seller->created_at->format('d M Y') : '-' }}</td>
                                 <td class="text-center">
                                     <div class="btn-group" role="group">
                                         <a href="{{ route('admin.seller.show', $seller->id) }}" class="btn btn-sm btn-info text-white" data-bs-toggle="tooltip" title="Lihat Detail">

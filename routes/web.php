@@ -3,7 +3,7 @@
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MasterController;
-
+use App\Http\Controllers\Pembeli;
 
 Route::get('/', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
@@ -39,5 +39,7 @@ Route::middleware(['auth', 'role:seller'])->prefix('seller')->group(function () 
 // USER (PEMBELI) ROUTE
 // ===================================
 Route::middleware(['auth', 'role:user'])->prefix('user')->group(function () {
-    Route::get('/dashboard',[MasterController::class,'userDashboard'])->name('user.dashboard');
+    Route::get('/dashboard',[Pembeli::class,'userDashboard'])->name('user.dashboard');
+    Route::get('/umkm',[Pembeli::class,'kategori'])->name('user.umkm');
+    
 });
