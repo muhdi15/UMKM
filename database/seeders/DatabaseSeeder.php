@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
 use App\Models\{
     Role, User, Seller, Category, Product, Cart,
     Order, OrderDetail, Review, Payment, UserAddress
@@ -14,13 +15,15 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
+        $now = Carbon::now();
+
         /**
          * 1️⃣ Roles
          */
         Role::insert([
-            ['name' => 'admin'],
-            ['name' => 'seller'],
-            ['name' => 'user'],
+            ['name' => 'admin', 'created_at' => $now, 'updated_at' => $now],
+            ['name' => 'seller', 'created_at' => $now, 'updated_at' => $now],
+            ['name' => 'user', 'created_at' => $now, 'updated_at' => $now],
         ]);
 
         /**
@@ -32,18 +35,24 @@ class DatabaseSeeder extends Seeder
                 'email' => 'admin@example.com',
                 'role_id' => 1,
                 'password' => Hash::make('password'),
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
             [
                 'name' => 'Toko Maju Seller',
                 'email' => 'seller@example.com',
                 'role_id' => 2,
                 'password' => Hash::make('password'),
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
             [
                 'name' => 'Budi Pembeli',
                 'email' => 'budi@example.com',
                 'role_id' => 3,
                 'password' => Hash::make('password'),
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
         ]);
 
@@ -61,6 +70,8 @@ class DatabaseSeeder extends Seeder
                 'longitude' => 119.3332100,
                 'foto_toko' => 'toko_elektronik.jpg',
                 'status' => 'aktif',
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
             [
                 'user_id' => 2,
@@ -72,6 +83,8 @@ class DatabaseSeeder extends Seeder
                 'longitude' => 119.3340000,
                 'foto_toko' => 'toko_fashion.jpg',
                 'status' => 'aktif',
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
         ]);
 
@@ -82,10 +95,14 @@ class DatabaseSeeder extends Seeder
             [
                 'nama_kategori' => 'Elektronik',
                 'deskripsi' => 'Produk-produk elektronik seperti TV, Kipas, dan kulkas.',
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
             [
                 'nama_kategori' => 'Fashion',
                 'deskripsi' => 'Pakaian dan aksesoris fashion pria dan wanita.',
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
         ]);
 
@@ -103,6 +120,8 @@ class DatabaseSeeder extends Seeder
                 'berat' => 3.50,
                 'foto' => 'kipas_cosmos.jpg',
                 'status' => 'aktif',
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
             [
                 'seller_id' => 2,
@@ -114,6 +133,8 @@ class DatabaseSeeder extends Seeder
                 'berat' => 0.40,
                 'foto' => 'kemeja_pria.jpg',
                 'status' => 'aktif',
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
         ]);
 
@@ -125,11 +146,15 @@ class DatabaseSeeder extends Seeder
                 'user_id' => 3,
                 'product_id' => 1,
                 'quantity' => 1,
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
             [
                 'user_id' => 3,
                 'product_id' => 2,
                 'quantity' => 2,
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
         ]);
 
@@ -148,6 +173,8 @@ class DatabaseSeeder extends Seeder
                 'status_order' => 'dikirim',
                 'alamat_pengiriman' => 'Jl. Trans Sulawesi No.88, Majene',
                 'catatan' => 'Mohon dikirim siang hari.',
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
             [
                 'user_id' => 3,
@@ -160,6 +187,8 @@ class DatabaseSeeder extends Seeder
                 'status_order' => 'diproses',
                 'alamat_pengiriman' => 'Jl. Poros Majene No.45',
                 'catatan' => null,
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
         ]);
 
@@ -173,6 +202,8 @@ class DatabaseSeeder extends Seeder
                 'harga_satuan' => 250000.00,
                 'quantity' => 1,
                 'subtotal' => 250000.00,
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
             [
                 'order_id' => 2,
@@ -180,6 +211,8 @@ class DatabaseSeeder extends Seeder
                 'harga_satuan' => 175000.00,
                 'quantity' => 2,
                 'subtotal' => 350000.00,
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
         ]);
 
@@ -192,12 +225,16 @@ class DatabaseSeeder extends Seeder
                 'user_id' => 3,
                 'rating' => 5,
                 'komentar' => 'Produk sesuai deskripsi dan berfungsi dengan baik.',
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
             [
                 'product_id' => 2,
                 'user_id' => 3,
                 'rating' => 4,
                 'komentar' => 'Bahan bagus, pengiriman cepat.',
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
         ]);
 
@@ -210,12 +247,16 @@ class DatabaseSeeder extends Seeder
                 'metode' => 'transfer',
                 'bukti_bayar' => 'bukti_transfer_1.jpg',
                 'status' => 'valid',
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
             [
                 'order_id' => 2,
                 'metode' => 'cod',
                 'bukti_bayar' => null,
                 'status' => 'pending',
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
         ]);
 
@@ -233,6 +274,8 @@ class DatabaseSeeder extends Seeder
                 'kecamatan' => 'Banggae',
                 'kode_pos' => '91412',
                 'is_default' => true,
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
             [
                 'user_id' => 3,
@@ -244,6 +287,8 @@ class DatabaseSeeder extends Seeder
                 'kecamatan' => 'Polewali',
                 'kode_pos' => '91413',
                 'is_default' => false,
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
         ]);
     }

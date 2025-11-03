@@ -94,6 +94,59 @@ class MasterController extends Controller
             ->with('success', 'Data seller berhasil dihapus.');
     }
 
+    public function sellerVerifikasi()
+    {
+        $sellers = Seller::with('user')
+            ->where('status', 'nonaktif')
+            ->latest()
+            ->paginate(10);
+
+        return view('admin.seller.verifikasi', compact('sellers'));
+    }
+
+
+    public function produkSeller(Request $request)
+    {
+        $query = Product::with(['seller.user'])->latest();
+
+        // Filter berdasarkan seller
+        if ($request->filled('seller_id')) {
+            $query->where('seller_id', $request->seller_id);
+        }
+
+        // Filter berdasarkan status
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+        $query = Product::with(['seller.user'])->latest();
+
+        if ($request->filled('seller_id')) {
+            $query->where('seller_id', $request->seller_id);
+        }
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        if ($request->filled('tanggal')) {
+            $query->whereDate('created_at', $request->tanggal);
+        }
+
+        $produk = $query->paginate(10);
+        $sellers = Seller::with('user')->get();
+
+        return view('admin.seller.produk', compact('produk', 'sellers'));
+    }
+
+    public function destroyProdukSeller($id)
+    {
+        $produk = Product::findOrFail($id);
+        $produk->delete();
+
+        return redirect()->back()->with('success', 'Produk berhasil dihapus.');
+    }
+
+
 
 
 
@@ -131,7 +184,8 @@ class MasterController extends Controller
 
     //=========Route for User =========
 
-    public function userDashboard(){
+    public function userDashboard()
+    {
         return Auth::user()->name;
     }
 }
