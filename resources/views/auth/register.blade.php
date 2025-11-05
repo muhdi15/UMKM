@@ -3,225 +3,210 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Akun - UMKM Majene</title>
+    <title>Daftar Akun | Ashion Fashion Store</title>
 
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-
-    <!-- AOS Animation -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
     <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
     <style>
         body {
-            background: radial-gradient(circle at top left, #0f2027, #203a43, #2c5364);
             font-family: 'Poppins', sans-serif;
-            color: #fff;
             min-height: 100vh;
-            overflow-x: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            /* ✅ Background image setup */
+            background: url('https://as2.ftcdn.net/jpg/02/01/88/03/1000_F_201880339_zTcsW58B73gEN6qQaqm0HvYLuUyP53rv.jpg') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
         }
 
-        .card {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.15);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-            animation: float 6s ease-in-out infinite;
+        /* Overlay agar teks dan form lebih jelas */
+        body::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(3px);
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+        .register-wrapper {
+            position: relative;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            padding: 30px 25px;
+            width: 100%;
+            max-width: 400px;
+            transition: 0.3s ease;
         }
 
-        .form-control, .form-select {
-            background: rgba(255,255,255,0.15);
-            border: none;
-            color: #fff;
-            border-radius: 10px;
-            padding: 10px 15px;
+        .register-wrapper:hover {
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.15);
         }
 
-        .form-control:focus, .form-select:focus {
-            background: rgba(255,255,255,0.25);
-            box-shadow: 0 0 8px #00b4d8;
-            color: #fff;
+        .register-logo {
+            display: block;
+            width: 70px;
+            margin: 0 auto 12px auto;
         }
 
-        .btn-primary {
-            background: linear-gradient(90deg, #00b4d8, #0077b6);
-            border: none;
-            border-radius: 10px;
-            transition: 0.4s;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 15px #00b4d8;
-        }
-
-        .title {
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: #00b4d8;
-            text-shadow: 0 0 10px rgba(0,180,216,0.5);
+        .register-title {
+            text-align: center;
+            font-weight: 600;
+            color: #222;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
         }
 
         .form-label {
             font-weight: 500;
-            color: #cfe7ff;
+            color: #444;
+            font-size: 0.9rem;
+        }
+
+        .form-control, .form-select {
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            padding: 8px 14px;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #ff6f61;
+            box-shadow: 0 0 0 0.2rem rgba(255, 111, 97, 0.25);
+        }
+
+        .btn-register {
+            background-color: #ff6f61;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            transition: 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .btn-register:hover {
+            background-color: #ff4b47;
+            box-shadow: 0 4px 10px rgba(255, 111, 97, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .text-link {
+            color: #ff6f61;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .text-link:hover {
+            text-decoration: underline;
         }
 
         .alert {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: #fff;
-            border-left: 5px solid #00b4d8;
-            backdrop-filter: blur(5px);
-            animation: fadeIn 0.5s ease-in-out;
+            border-radius: 10px;
+            font-size: 0.85rem;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @media (max-width: 576px) {
+            .register-wrapper {
+                padding: 25px 18px;
+                max-width: 90%;
+            }
 
-        .register-container {
-            min-height: 100vh;
-        }
-
-        .neon-glow {
-            position: absolute;
-            top: -50px;
-            left: -50px;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(0,180,216,0.3), transparent 70%);
-            filter: blur(50px);
-            animation: pulse 4s infinite alternate;
-        }
-
-        @keyframes pulse {
-            from { transform: scale(1); opacity: 0.8; }
-            to { transform: scale(1.2); opacity: 0.4; }
-        }
-
-        @media (max-width: 768px) {
-            .card {
-                padding: 1.5rem;
+            .register-title {
+                font-size: 1.2rem;
             }
         }
     </style>
 </head>
-
 <body>
-    <div class="register-container d-flex justify-content-center align-items-center position-relative">
-        <div class="neon-glow"></div>
 
-        <div class="container">
-            <div class="row justify-content-center" data-aos="fade-up" data-aos-duration="1000">
-                <div class="col-md-8 col-lg-6 col-xl-5">
-                    <div class="card p-4">
-                        <div class="text-center mb-4">
-                            <h3 class="title"><i class="bi bi-shop me-2"></i>UMKM Majene</h3>
-                            <p class="text-light mb-1">Daftar Akun Baru</p>
-                        </div>
+    <div class="register-wrapper">
+        <img src="https://cdn-icons-png.flaticon.com/512/891/891462.png" alt="Logo" class="register-logo">
+        <h2 class="register-title">Ashion Fashion Store</h2>
 
-                        {{-- ✅ Pesan sukses --}}
-                        @if (session('success'))
-                            <div class="alert alert-success alert-dismissible fade show">
-                                <i class="bi bi-check-circle-fill me-2"></i>{{ session('success') }}
-                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
-                            </div>
-                        @endif
-
-                        {{-- ❌ Pesan error --}}
-                        @if (session('error'))
-                            <div class="alert alert-danger alert-dismissible fade show">
-                                <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ session('error') }}
-                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
-                            </div>
-                        @endif
-
-                        {{-- ❗ Validasi Laravel --}}
-                        @if ($errors->any())
-                            <div class="alert alert-danger alert-dismissible fade show">
-                                <ul class="mb-0 ps-3">
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
-                            </div>
-                        @endif
-
-                        <form method="POST" action="{{ route('register.post') }}" data-aos="zoom-in" data-aos-duration="800">
-                            @csrf
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Nama Lengkap</label>
-                                <input type="text" name="name" id="name" class="form-control" placeholder="Masukkan nama lengkap" required value="{{ old('name') }}">
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Alamat Email</label>
-                                <input type="email" name="email" id="email" class="form-control" placeholder="Masukkan email aktif" required value="{{ old('email') }}">
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Kata Sandi</label>
-                                <input type="password" name="password" id="password" class="form-control" placeholder="Masukkan password" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="password_confirmation" class="form-label">Konfirmasi Kata Sandi</label>
-                                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Ulangi password" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="role" class="form-label">Daftar Sebagai</label>
-                                <select name="role" id="role" class="form-select" required>
-                                    <option value="">-- Pilih Role --</option>
-                                    <option value="user" {{ old('role') == 'user' ? 'selected' : '' }}>Pembeli / Konsumen</option>
-                                    <option value="seller" {{ old('role') == 'seller' ? 'selected' : '' }}>Penjual (UMKM)</option>
-                                </select>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary w-100 py-2 mt-3">
-                                <i class="bi bi-person-plus"></i> Daftar Sekarang
-                            </button>
-                        </form>
-
-                        <p class="mt-4 text-center">
-                            Sudah punya akun?
-                            <a href="{{ route('login') }}" class="text-info text-decoration-none fw-semibold">
-                                Login Sekarang
-                            </a>
-                        </p>
-                    </div>
-                </div>
+        {{-- ✅ Alert Success --}}
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle me-2"></i> {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
-        </div>
+        @endif
+
+        {{-- ❌ Alert Error --}}
+        @if (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="bi bi-exclamation-circle me-2"></i> {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        @endif
+
+        {{-- ⚠️ Validasi Laravel --}}
+        @if ($errors->any())
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li><i class="bi bi-dot"></i> {{ $error }}</li>
+                    @endforeach
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        @endif
+
+        <form method="POST" action="{{ route('register.post') }}">
+            @csrf
+            <div class="mb-3">
+                <label for="name" class="form-label">Nama Lengkap</label>
+                <input type="text" name="name" id="name" class="form-control" placeholder="Masukkan nama lengkap" value="{{ old('name') }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Alamat Email</label>
+                <input type="email" name="email" id="email" class="form-control" placeholder="Masukkan email aktif" value="{{ old('email') }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Kata Sandi</label>
+                <input type="password" name="password" id="password" class="form-control" placeholder="Masukkan password" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="password_confirmation" class="form-label">Konfirmasi Kata Sandi</label>
+                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Ulangi password" required>
+            </div>
+
+            <div class="mb-4">
+                <label for="role" class="form-label">Daftar Sebagai</label>
+                <select name="role" id="role" class="form-select" required>
+                    <option value="">-- Pilih Role --</option>
+                    <option value="user" {{ old('role') == 'user' ? 'selected' : '' }}>Pembeli / Konsumen</option>
+                    <option value="seller" {{ old('role') == 'seller' ? 'selected' : '' }}>Penjual (UMKM)</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-register w-100 py-2">
+                <i class="bi bi-person-plus me-1"></i> Daftar Sekarang
+            </button>
+
+            <div class="text-center mt-3">
+                <p class="mb-0">Sudah punya akun?
+                    <a href="{{ route('login') }}" class="text-link">Masuk Sekarang</a>
+                </p>
+            </div>
+        </form>
     </div>
 
-    <!-- Scripts -->
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init();
-
-        // animasi smooth alert hilang otomatis
-        const alerts = document.querySelectorAll('.alert');
-        alerts.forEach(alert => {
-            setTimeout(() => {
-                alert.classList.remove('show');
-                setTimeout(() => alert.remove(), 500);
-            }, 5000);
-        });
-    </script>
 </body>
 </html>

@@ -3,144 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | UMKM Majene</title>
+    <title>Login | Ashion Fashion Store</title>
 
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Google Font -->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-    <!-- Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- Animate.css -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background: radial-gradient(circle at 50% 20%, #0a0f24, #02050d);
-            color: #fff;
-            height: 100vh;
+            background-color: #f8f9fa;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
+            min-height: 100vh;
         }
 
-        .login-card {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            padding: 40px 30px;
+        .login-wrapper {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            padding: 40px 35px;
             width: 100%;
             max-width: 420px;
-            box-shadow: 0 0 25px rgba(0, 255, 255, 0.2);
-            transition: all 0.4s ease;
-            animation: fadeInUp 1s ease;
+            transition: 0.3s ease;
         }
 
-        .login-card:hover {
-            box-shadow: 0 0 40px rgba(0, 255, 255, 0.4);
-            transform: scale(1.02);
+        .login-wrapper:hover {
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .login-logo {
+            display: block;
+            width: 90px;
+            margin: 0 auto 15px auto;
+        }
+
+        .login-title {
+            text-align: center;
+            font-weight: 600;
+            color: #222;
+            margin-bottom: 25px;
+            font-size: 1.6rem;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: #444;
         }
 
         .form-control {
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            color: #fff;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            padding: 10px 15px;
+            transition: all 0.3s;
         }
 
         .form-control:focus {
-            box-shadow: 0 0 10px #00ffff;
-            border: 1px solid #00ffff;
+            border-color: #ff6f61;
+            box-shadow: 0 0 0 0.2rem rgba(255, 111, 97, 0.25);
         }
 
         .btn-login {
-            background: linear-gradient(90deg, #00ffff, #0077ff);
+            background-color: #ff6f61;
             border: none;
-            color: #fff;
-            transition: all 0.3s ease;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            transition: 0.3s;
         }
 
         .btn-login:hover {
-            box-shadow: 0 0 15px #00ffff;
-            transform: scale(1.05);
+            background-color: #ff4b47;
+            box-shadow: 0 4px 10px rgba(255, 111, 97, 0.3);
+            transform: translateY(-1px);
         }
 
-        .title {
-            text-align: center;
-            font-weight: 600;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: #00ffff;
-            letter-spacing: 1px;
-        }
-
-        .footer-text {
-            margin-top: 15px;
-            text-align: center;
-            font-size: 0.9rem;
-        }
-
-        .footer-text a {
-            color: #00ffff;
+        .text-link {
+            color: #ff6f61;
             text-decoration: none;
+            font-weight: 500;
         }
 
-        .footer-text a:hover {
+        .text-link:hover {
             text-decoration: underline;
         }
 
-        .logo {
-            display: block;
-            margin: 0 auto 15px auto;
-            width: 80px;
-            filter: drop-shadow(0 0 10px #00ffff);
-            animation: pulseLogo 3s infinite ease-in-out;
-        }
-
-        @keyframes pulseLogo {
-            0% { transform: scale(1); filter: drop-shadow(0 0 10px #00ffff); }
-            50% { transform: scale(1.1); filter: drop-shadow(0 0 25px #00ffff); }
-            100% { transform: scale(1); filter: drop-shadow(0 0 10px #00ffff); }
+        .alert {
+            border-radius: 10px;
+            font-size: 0.9rem;
         }
 
         @media (max-width: 576px) {
-            .login-card {
+            .login-wrapper {
                 padding: 30px 20px;
-            }
-            .title {
-                font-size: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="login-card animate__animated animate__fadeInUp">
-        <img src="https://cdn-icons-png.flaticon.com/512/891/891462.png" alt="Logo" class="logo">
-        <h2 class="title">UMKM Majene</h2>
+    <div class="login-wrapper">
 
-        <!-- Alert Success -->
+        <img src="https://cdn-icons-png.flaticon.com/512/891/891462.png" alt="Logo" class="login-logo">
+        <h2 class="login-title">Ashion Fashion Store</h2>
+
+        {{-- Alert Success --}}
         @if (session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <i class="bi bi-check-circle me-2"></i> {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
         @endif
 
-        <!-- Alert Error -->
+        {{-- Alert Error --}}
         @if (session('error'))
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <i class="bi bi-exclamation-circle me-2"></i> {{ session('error') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
         @endif
 
-        <!-- Validation Errors -->
+        {{-- Validation Errors --}}
         @if ($errors->any())
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <ul class="mb-0">
@@ -148,39 +137,40 @@
                         <li><i class="bi bi-dot"></i> {{ $error }}</li>
                     @endforeach
                 </ul>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
         @endif
 
         <form method="POST" action="{{ route('login.post') }}">
             @csrf
+
             <div class="mb-3">
-                <label for="email" class="form-label text-info">Email</label>
+                <label for="email" class="form-label">Alamat Email</label>
                 <div class="input-group">
-                    <span class="input-group-text bg-transparent text-info"><i class="bi bi-envelope"></i></span>
-                    <input type="email" name="email" class="form-control" placeholder="Masukkan email Anda" required autofocus>
+                    <span class="input-group-text bg-white text-secondary border-end-0"><i class="bi bi-envelope"></i></span>
+                    <input type="email" name="email" class="form-control border-start-0" placeholder="Masukkan email Anda" required autofocus>
                 </div>
             </div>
 
             <div class="mb-4">
-                <label for="password" class="form-label text-info">Password</label>
+                <label for="password" class="form-label">Kata Sandi</label>
                 <div class="input-group">
-                    <span class="input-group-text bg-transparent text-info"><i class="bi bi-lock"></i></span>
-                    <input type="password" name="password" class="form-control" placeholder="Masukkan password" required>
+                    <span class="input-group-text bg-white text-secondary border-end-0"><i class="bi bi-lock"></i></span>
+                    <input type="password" name="password" class="form-control border-start-0" placeholder="Masukkan password" required>
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-login w-100 py-2 fw-bold">
+            <button type="submit" class="btn btn-login w-100 py-2">
                 <i class="bi bi-box-arrow-in-right me-1"></i> Masuk Sekarang
             </button>
 
-            <div class="footer-text mt-3">
-                <p>Belum punya akun? <a href="{{ route('register') }}">Daftar Sekarang</a></p>
+            <div class="text-center mt-3">
+                <p class="mb-0">Belum punya akun? <a href="{{ route('register') }}" class="text-link">Daftar Sekarang</a></p>
             </div>
+
         </form>
     </div>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

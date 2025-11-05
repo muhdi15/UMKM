@@ -255,8 +255,8 @@
         </div>
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__auth">
-            <a href="#">Login</a>
-            <a href="#">Register</a>
+            <a href="{{route('login')}}">Login</a>
+            <a href="{{route('register')}}">Register</a>
         </div>
     </div>
     <!-- Offcanvas Menu End -->
@@ -293,15 +293,32 @@
                 <div class="col-lg-3">
                     <div class="header__right">
                         <div class="header__right__auth">
-                            <a href="#">Login</a>
-                            <a href="#">Register</a>
+                            @guest
+                                {{-- Jika user BELUM login --}}
+                                <a href="{{ route('login') }}">Login</a>
+                                <a href="{{ route('register') }}">Register</a>
+                            @endguest
+
+                            @auth
+                                {{-- Jika user SUDAH login --}}
+                                <div class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa fa-user"></i> {{ Auth::user()->name }}
+                                    </a>
+                                    
+                                </div>
+                            @endauth
                         </div>
+
                         <ul class="header__right__widget">
                             <li><span class="icon_search search-switch"></span></li>
                             <li><a href="#"><span class="icon_heart_alt"></span>
                                 <div class="tip">2</div>
                             </a></li>
                             <li><a href="#"><span class="icon_bag_alt"></span>
+                                <div class="tip">2</div>
+                            </a></li>
+                             <li><a href="{{route('logout')}}"><span class="icon_lock-open_alt"></span>
                                 <div class="tip">2</div>
                             </a></li>
                         </ul>
