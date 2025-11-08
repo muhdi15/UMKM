@@ -4,14 +4,19 @@
 <div class="container-fluid py-4">
 
     {{-- Header & Navigasi --}}
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex justify-content-center align-items-center mb-4">
         <h4 class="fw-bold text-secondary mb-0">
-            <i class="bx bx-cube-alt me-1 text-primary"></i> Data Produk
+             Data Produk
         </h4>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-end mb-4">
         <a href="{{ route('admin.sellers') }}" class="btn btn-outline-primary btn-sm">
             <i class="bx bx-arrow-back"></i> Kembali
         </a>
     </div>
+
+
 
     {{-- Notifikasi --}}
     @if(session('success'))

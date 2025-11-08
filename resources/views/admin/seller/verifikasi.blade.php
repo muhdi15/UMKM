@@ -4,10 +4,13 @@
 <div class="container-fluid py-4">
 
     {{-- Judul Halaman --}}
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex justify-content-center align-items-center mb-4">
         <h3 class="fw-bold mb-0 text-dark">
-            <i class="bx bx-user-check text-primary"></i> Verifikasi Seller
+         Verifikasi Seller
         </h3>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-end mb-4">
         <a href="{{ route('admin.sellers') }}" class="btn btn-secondary btn-sm">
             <i class='bx bx-arrow-back'></i> Kembali ke Daftar Seller
         </a>

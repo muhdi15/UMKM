@@ -4,14 +4,14 @@
 <div class="container-fluid py-4">
 
     {{-- Judul Halaman --}}
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex justify-content-center align-items-center mb-4">
         <h3 class="fw-bold mb-0 text-dark">
-            <i class="bx bxs-store-alt text-primary"></i> Manajemen Seller
+            <i class="bx bxs-store-alt text-primary"></i> SELLER
         </h3>
     </div>
 
     {{-- Navigasi Sub Menu --}}
-    <div class="mb-4 d-flex flex-wrap gap-2">
+    <div class="mb-4 d-flex flex-wrap gap-2 justify-content-center">
         <a href="{{ route('admin.sellers') }}" class="btn btn-sm btn-primary">
             <i class='bx bx-list-ul'></i> Daftar Seller
         </a>
@@ -23,12 +23,6 @@
         </a>
         <a href="{{route('admin.seller.map')}}" class="btn btn-sm btn-outline-secondary">
             <i class='bx bx-map'></i> Peta Lokasi
-        </a>
-        <a href="#" class="btn btn-sm btn-outline-secondary">
-            <i class='bx bx-cart'></i> Pesanan
-        </a>
-        <a href="#" class="btn btn-sm btn-outline-secondary">
-            <i class='bx bx-export'></i> Export Data
         </a>
     </div>
 
