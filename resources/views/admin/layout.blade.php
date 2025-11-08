@@ -144,8 +144,8 @@
             <i class='bx bxs-user'></i> Manajemen Konsumen
         </a>
 
-        <a href="#" 
-           class="nav-link {{ request()->routeIs('admin.products') ? 'active' : '' }}">
+        <a href="{{route('produk')}}" 
+           class="nav-link {{ request()->routeIs('produk') ? 'active' : '' }}">
             <i class='bx bxs-box'></i> Produk
         </a>
 
