@@ -30,7 +30,7 @@ Dengan sistem ini, pelaku UMKM dapat mengelola data produk, transaksi, laporan, 
 ## 🖼️ Tampilan Aplikasi
 > *Berikut contoh tampilan (placeholder). Bisa diganti dengan screenshot asli aplikasi.*
 
-![Dashboard](https://via.placeholder.com/800x400?text=Dashboard+UMKM)  
+![Dashboard]()  
 ![Manajemen Produk](https://via.placeholder.com/800x400?text=Manajemen+Produk)
 
 ---
