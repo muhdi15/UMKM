@@ -30,7 +30,7 @@ Dengan sistem ini, pelaku UMKM dapat mengelola data produk, transaksi, laporan, 
 ## 🖼️ Tampilan Aplikasi
 > *Berikut contoh tampilan (placeholder). Bisa diganti dengan screenshot asli aplikasi.*
 
-![Dashboard](https://via.placeholder.com/800x400?text=Dashboard+UMKM)  
+![Dashboard]()  
 ![Manajemen Produk](https://via.placeholder.com/800x400?text=Manajemen+Produk)
 
 ---
@@ -46,5 +46,11 @@ Dengan sistem ini, pelaku UMKM dapat mengelola data produk, transaksi, laporan, 
 ## 📦 Instalasi
 Clone repositori ini:
 ```bash
-git clone https://github.com/username/sistem-informasi-umkm.git
-cd sistem-informasi-umkm
+git clone https://github.com/muhdi15/UMKM
+cd UMKM
+composer install
+copy .env.example .env
+php artisan key:generate
+php artisan migrate
+php artisan db:seed
+php artisan serve
