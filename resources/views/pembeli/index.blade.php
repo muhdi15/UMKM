@@ -317,10 +317,12 @@
                             </a></li>
                             <li><a href="#"><span class="icon_bag_alt"></span>
                                 <div class="tip">2</div>
+                            @auth
                             </a></li>
                              <li><a href="{{route('logout')}}"><span class="icon_lock-open_alt"></span>
-                                <div class="tip">2</div>
-                            </a></li>
+                            </a></li>    
+                            @endauth
+                            
                         </ul>
                     </div>
                 </div>
