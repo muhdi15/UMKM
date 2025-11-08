@@ -65,12 +65,12 @@
         }
 
         .form-control:focus {
-            border-color: #ff6f61;
+            border-color: #3f8dd6;
             box-shadow: 0 0 0 0.2rem rgba(255, 111, 97, 0.25);
         }
 
         .btn-login {
-            background-color: #ff6f61;
+            background-color: #3f8dd6;
             border: none;
             border-radius: 10px;
             color: white;
@@ -79,13 +79,13 @@
         }
 
         .btn-login:hover {
-            background-color: #ff4b47;
+            background-color: #3f8dd6;
             box-shadow: 0 4px 10px rgba(255, 111, 97, 0.3);
             transform: translateY(-1px);
         }
 
         .text-link {
-            color: #ff6f61;
+            color: #3f8dd6;
             text-decoration: none;
             font-weight: 500;
         }
