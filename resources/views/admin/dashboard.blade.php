@@ -169,23 +169,33 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                                $badgeColors = [
+                                    'diproses'   => 'primary',
+                                    'dikirim'    => 'info',
+                                    'dibatalkan' => 'danger',
+                                    'selesai'    => 'success',
+                                ];
+                            @endphp
+
                             @forelse ($recentOrders as $order)
                                 <tr>
                                     <td>{{ $order->user->name ?? '-' }}</td>
                                     {{-- <td>{{ $order->created_at->format('d M Y') }}</td> --}}
                                     <td>
-                                        <span class="badge badge-{{ $order->status == 'selesai' ? 'success' : 'warning' }}">
-                                            {{ ucfirst($order->status) }}
+                                        <span class="badge bg-{{ $badgeColors[$order->status_order] ?? 'secondary' }}">
+                                            {{ ucfirst($order->status_order) }}
                                         </span>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="3" class="text-center text-muted">Belum ada pesanan baru.</td>
+                                    <td colspan="2" class="text-center text-muted">Belum ada pesanan baru.</td>
                                 </tr>
                             @endforelse
                         </tbody>
                     </table>
+
                 </div>
             </div>
         </div>
