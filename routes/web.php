@@ -24,12 +24,17 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 // ===================================
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [MasterController::class, 'adminDashboard'])->name('admin.dashboard');
-
     Route::get('/seller', [MasterController::class, 'sellerIndex'])->name('admin.sellers');
+    Route::get('/admin/seller/search', [MasterController::class, 'searchSeller'])->name('admin.seller.search');
+    Route::get('/seller/map', [MasterController::class, 'sellerMap'])->name('admin.seller.map');
     Route::get('/seller/verifikasi', [MasterController::class, 'sellerVerifikasi'])->name('admin.seller.verifikasi');
     Route::get('/seller/{id}', [MasterController::class, 'sellerShow'])->name('admin.seller.show');
     Route::put('/seller/{id}/status/{status}', [MasterController::class, 'sellerUpdateStatus'])->name('admin.seller.updateStatus');
     Route::delete('/seller/{id}', [MasterController::class, 'sellerDestroy'])->name('admin.seller.destroy');
+    
+
+
+
 
     Route::get('/produk', [MasterController::class, 'produkSeller'])->name('produk');
     Route::delete('/produk/{id}', [MasterController::class, 'destroyProdukSeller'])->name('produk.destroy');
@@ -41,7 +46,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
 // ===================================
 // SELLER ROUTE
 // ===================================
-Route::middleware(['auth', 'role:seller'])->prefix('seller')->group(function () {});
+Route::middleware(['auth', 'role:seller'])->prefix('seller')->group(function () {
+    
+});
 
 // ===================================
 // USER (PEMBELI) ROUTE

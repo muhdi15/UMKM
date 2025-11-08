@@ -319,7 +319,7 @@
                                 <div class="tip">2</div>
                             @auth
                             </a></li>
-                             <li><a href="{{route('logout')}}"><span class="icon_lock-open_alt"></span>
+                             <li><a href="{{route('logout')}}"><span class="fa fa-sign-out"></span>
                             </a></li>    
                             @endauth
                             

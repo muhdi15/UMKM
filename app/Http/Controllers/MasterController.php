@@ -149,6 +149,50 @@ class MasterController extends Controller
 
 
 
+    public function sellerMap(Request $request)
+    {
+        $query = Seller::with('user')
+            ->whereNotNull('latitude')
+            ->whereNotNull('longitude');
+
+        // Filter berdasarkan status
+        if ($request->status) {
+            $query->where('status', $request->status);
+        }
+
+        // Filter jika ada nama seller
+        if ($request->seller) {
+            $query->where('nama_toko', 'like', "%{$request->seller}%")
+                ->orWhereHas('user', function ($q) use ($request) {
+                    $q->where('name', 'like', "%{$request->seller}%");
+                });
+        }
+
+        $sellers = $query->latest()->get();
+
+        return view('admin.seller.map', compact('sellers'));
+    }
+
+    public function searchSeller(Request $request)
+    {
+        $keyword = $request->get('q');
+
+        $sellers = Seller::with('user')
+            ->where('nama_toko', 'like', "%{$keyword}%")
+            ->orWhereHas('user', function ($q) use ($keyword) {
+                $q->where('name', 'like', "%{$keyword}%");
+            })
+            ->take(10)
+            ->get(['id', 'nama_toko', 'latitude', 'longitude']);
+
+        return response()->json($sellers);
+    }
+
+
+
+
+
+
 
 
 

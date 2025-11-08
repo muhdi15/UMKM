@@ -21,7 +21,7 @@
         <a href="{{route('produk')}}" class="btn btn-sm btn-outline-secondary">
             <i class='bx bx-package'></i> Produk Seller
         </a>
-        <a href="#" class="btn btn-sm btn-outline-secondary">
+        <a href="{{route('admin.seller.map')}}" class="btn btn-sm btn-outline-secondary">
             <i class='bx bx-map'></i> Peta Lokasi
         </a>
         <a href="#" class="btn btn-sm btn-outline-secondary">
