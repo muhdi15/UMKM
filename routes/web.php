@@ -65,8 +65,6 @@ Route::middleware(['auth', 'role:seller'])->prefix('seller')->group(function () 
 Route::middleware(['auth', 'role:user'])->prefix('user')->group(function () {
 <<<<<<< HEAD
     Route::get('/umkm', [Pembeli::class, 'kategori'])->name('user.umkm');
-=======
-
     Route::get('/home',[Pembeli::class,'userDashboard'])->name('user.dashboard');
     Route::get('/umkm',[Pembeli::class,'kategori'])->name('user.umkm');
     Route::get('/about',[Pembeli::class,'about'])->name('user.about');
