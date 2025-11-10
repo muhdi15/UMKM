@@ -189,6 +189,111 @@ class MasterController extends Controller
     }
 
 
+    public function profile()
+    {
+        $user = auth()->user(); // User yang login
+        return view('admin.profile.index', compact('user'));
+    }
+
+    public function profileUpdate(Request $request)
+    {
+        $user = auth()->user();
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+            'password' => 'nullable|string|min:6|confirmed',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+        if ($request->password) {
+            $user->password = bcrypt($request->password);
+        }
+
+        if ($request->hasFile('foto')) {
+            // Hapus foto lama jika ada
+            if ($user->foto && file_exists(storage_path('app/public/' . $user->foto))) {
+                unlink(storage_path('app/public/' . $user->foto));
+            }
+            $path = $request->file('foto')->store('foto_admin', 'public');
+            $user->foto = $path;
+        }
+
+        $user->save();
+
+        return redirect()->route('admin.profile')->with('success', 'Profil berhasil diperbarui.');
+    }
+
+
+    //Kategori
+
+    public function kategoriIndex(Request $request)
+    {
+        $query = Category::query();
+
+        if ($request->filled('search')) {
+            $query->where('nama_kategori', 'like', '%' . $request->search . '%');
+        }
+
+        $kategori = $query->latest()->paginate(10)->withQueryString();
+
+        return view('admin.kategori.index', compact('kategori'));
+    }
+
+    /**
+     * Simpan kategori baru
+     */
+    public function kategoriStore(Request $request)
+    {
+        $request->validate([
+            'nama_kategori' => 'required|string|max:100|unique:categories,nama_kategori',
+            'deskripsi' => 'nullable|string|max:255',
+        ]);
+
+        Category::create([
+            'nama_kategori' => $request->nama_kategori,
+            'deskripsi' => $request->deskripsi,
+        ]);
+
+        return redirect()->route('kategori.index')->with('success', 'Kategori berhasil ditambahkan!');
+    }
+
+    /**
+     * Update kategori
+     */
+    public function kategoriUpdate(Request $request, $id)
+    {
+        $kategori = Category::findOrFail($id);
+
+        $request->validate([
+            'nama_kategori' => 'required|string|max:100|unique:categories,nama_kategori,' . $kategori->id,
+            'deskripsi' => 'nullable|string|max:255',
+        ]);
+
+        $kategori->update([
+            'nama_kategori' => $request->nama_kategori,
+            'deskripsi' => $request->deskripsi,
+        ]);
+
+        return redirect()->route('kategori.index')->with('success', 'Kategori berhasil diperbarui!');
+    }
+
+    /**
+     * Hapus kategori
+     */
+    public function kategoriDestroy($id)
+    {
+        $kategori = Category::findOrFail($id);
+        $kategori->delete();
+
+        return redirect()->route('kategori.index')->with('success', 'Kategori berhasil dihapus!');
+    }
+
+
+
 
 
 

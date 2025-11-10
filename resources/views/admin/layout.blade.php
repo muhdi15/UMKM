@@ -149,8 +149,8 @@
             <i class='bx bxs-box'></i> Produk
         </a>
 
-        <a href="#" 
-           class="nav-link {{ request()->routeIs('admin.categories') ? 'active' : '' }}">
+        <a href="{{route('kategori.index')}}" 
+           class="nav-link {{ request()->routeIs('admin.katergori') ? 'active' : '' }}">
             <i class='bx bxs-category'></i> Kategori
         </a>
 
@@ -186,7 +186,7 @@
                         <strong>{{ Auth::user()->name ?? 'Admin' }}</strong>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end shadow">
-                        <li><a class="dropdown-item" href="#">Profil</a></li>
+                        <li><a class="dropdown-item" href="{{route('admin.profile')}}">Profil</a></li>
                         <li><a class="dropdown-item" href="{{ route('logout') }}">Keluar</a></li>
                     </ul>
                 </div>

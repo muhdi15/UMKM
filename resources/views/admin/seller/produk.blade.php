@@ -6,7 +6,7 @@
     {{-- Header & Navigasi --}}
     <div class="d-flex justify-content-center align-items-center mb-4">
         <h4 class="fw-bold text-secondary mb-0">
-             Data Produk
+             DATA PRODUK
         </h4>
     </div>
 
