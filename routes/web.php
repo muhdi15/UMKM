@@ -63,5 +63,14 @@ Route::middleware(['auth', 'role:seller'])->prefix('seller')->group(function () 
 // USER (PEMBELI) ROUTE
 // ===================================
 Route::middleware(['auth', 'role:user'])->prefix('user')->group(function () {
+<<<<<<< HEAD
     Route::get('/umkm', [Pembeli::class, 'kategori'])->name('user.umkm');
+=======
+
+    Route::get('/home',[Pembeli::class,'userDashboard'])->name('user.dashboard');
+    Route::get('/umkm',[Pembeli::class,'kategori'])->name('user.umkm');
+    Route::get('/about',[Pembeli::class,'about'])->name('user.about');
+    Route::get('/contact',[Pembeli::class,'contact'])->name('user.contact');
+    
+>>>>>>> bb1ea6ec0d2831bf441730949347f42f2084a79f
 });

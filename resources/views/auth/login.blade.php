@@ -111,7 +111,7 @@
     <div class="login-wrapper">
 
         <img src="https://cdn-icons-png.flaticon.com/512/891/891462.png" alt="Logo" class="login-logo">
-        <h2 class="login-title">Ashion Fashion Store</h2>
+        <h2 class="login-title"></h2>
 
         {{-- Alert Success --}}
         @if (session('success'))
