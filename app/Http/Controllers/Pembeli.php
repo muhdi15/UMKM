@@ -10,15 +10,13 @@ class Pembeli extends Controller
 {
     public function userDashboard()
     {
-        if(Auth::user()->role->name != 'user' ){
-            return redirect()->back();
-        }
         return view('pembeli.home');
     }
+    
     public function kategori()
     {
         $data = Seller::all();
-        return view('pembeli.umkm',compact('data'));
+        return view('pembeli.umkm', compact('data'));
     }
     public function about()
     {

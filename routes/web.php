@@ -4,8 +4,23 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MasterController;
 use App\Http\Controllers\Pembeli;
+use Illuminate\Support\Facades\Auth;
 
-Route::get('/', [Pembeli::class, 'userDashboard'])->name('user.dashboard');
+Route::get('/', function () {
+    // Jika belum login, arahkan langsung ke halaman pembeli.home
+    if (!Auth::check()) {
+        return view('pembeli.home');
+    }
+
+    // Jika sudah login tapi rolenya admin atau seller, tolak akses
+    if (in_array(Auth::user()->role->name, ['admin', 'seller'])) {
+        // abort(403, 'Anda tidak memiliki akses ke halaman ini.');
+        return redirect()->back();
+    }
+
+    // Jika role user, tampilkan dashboard pembeli
+    return app(\App\Http\Controllers\Pembeli::class)->userDashboard();
+})->name('user.dashboard');
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
@@ -70,4 +85,4 @@ Route::middleware(['auth', 'role:user'])->prefix('user')->group(function () {
     Route::get('/contact',[Pembeli::class,'contact'])->name('user.contact');
     
 
-});
+});  
