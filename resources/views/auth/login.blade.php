@@ -38,10 +38,16 @@
             box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
         }
 
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
         .login-logo {
-            display: block;
-            width: 90px;
-            margin: 0 auto 15px auto;
+            height: 100px;
+            width: auto;
+            margin-bottom: 30px;
         }
 
         .login-title {
@@ -109,9 +115,16 @@
 <body>
 
     <div class="login-wrapper">
-
-        <img src="https://cdn-icons-png.flaticon.com/512/891/891462.png" alt="Logo" class="login-logo">
-        <h2 class="login-title"></h2>
+        <!-- Logo di tengah -->
+        <div class="logo-container">
+            <a href="{{route('user.dashboard')}}">
+                <img src="https://beritawarganet.com/wp-content/uploads/2022/08/Logo-Kabupaten-Majene.png" 
+                     alt="Logo Majene" 
+                     class="login-logo">
+            </a>
+        </div>
+        
+        {{-- <h2 class="login-title">Login</h2> --}}
 
         {{-- Alert Success --}}
         @if (session('success'))

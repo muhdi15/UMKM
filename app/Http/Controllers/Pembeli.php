@@ -26,4 +26,20 @@ class Pembeli extends Controller
     {
         return view('pembeli.contact');
     }
+    public function keranjang()
+    {
+        return view('pembeli.keranjang');
+    }
+    public function history()
+    {
+        return view('pembeli.history');
+    }
+    public function wishlist()
+    {
+        return view('pembeli.wishlist');
+    }
+    public function profil()
+    {
+        return view('pembeli.profil');
+    }
 }

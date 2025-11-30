@@ -1,4 +1,6 @@
 @extends('pembeli.index')
+@section('title', 'UMKM')
+
 @section('kategori')
 <style>
     .category-carousel-section {

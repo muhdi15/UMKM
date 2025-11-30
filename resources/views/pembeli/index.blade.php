@@ -8,7 +8,7 @@
     <meta name="keywords" content="Ashion, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ashion | Template</title>
+    <title>@yield('title', 'UMKM Majene')</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
@@ -46,7 +46,7 @@
             </a></li>
         </ul>
         <div class="offcanvas__logo">
-            <a href="./index.html"><img src="img/logo.png" alt=""></a>
+            <a href="{{route('user.dashboard')}}"><img src="https://beritawarganet.com/wp-content/uploads/2022/08/Logo-Kabupaten-Majene.png" alt=""  style="max-height: 50px; width: auto;"></a>
         </div>
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__auth">
@@ -62,7 +62,9 @@
             <div class="row  align-item-center">
                 <div class="col-xl-3 col-lg-2">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="{{ asset('img/logo.png') }}" alt=""></a>
+                        <a href="{{route('user.dashboard')}}">
+                            <img src="https://beritawarganet.com/wp-content/uploads/2022/08/Logo-Kabupaten-Majene.png" alt="Logo Majene"  style="max-height: 40px; width: auto;">
+                        </a>
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-7">
@@ -95,72 +97,78 @@
                 </div>
                 <div class="col-lg-3">
                     <div class="header__right">
-
                         <div class="header__right__auth">
                             @guest
                                 {{-- Jika user BELUM login --}}
                                 <a href="{{ route('login') }}">Login</a>
                                 <a href="{{ route('register') }}">Register</a>
                             @endguest
-
+                
                             @auth
                                 {{-- Jika user SUDAH login --}}
-                                <div class="dropdown">
+                                {{-- <div class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="fa fa-user"></i> {{ Auth::user()->name }}
                                     </a>
-                                    
-                                </div>
+                                </div> --}}
                             @endauth
                         </div>
-
-
+                
                         <ul class="header__right__widget">
-                            {{-- <li><a href="#"><span class="icon_heart_alt"></span>
-                                <div class="tip">2</div>
-                            </a></li>
-                            <li><a href="#"><span class="icon_bag_alt"></span>
-                                <div class="tip">2</div>
-                            </a></li> --}}
+                            <!-- Icon Keranjang -->
+                            <li>
+                                <a href="{{ route('user.keranjang') }}">
+                                    <i class="fas fa-bell"></i>
+                                    
+                                </a>
+                            </li>
 
-                            <!-- Dropdown Profil yang Diperbaiki -->
-                            
+                            <li>
+                                <a href="{{ route('user.keranjang') }}">
+                                    <span class="icon_bag_alt"></span>
+                                </a>
+                            </li>
+                
+                            <!-- Icon Wishlist -->
+                            <li>
+                                <a href="{{ route('user.wishlist') }}">
+                                    <span class="icon_heart_alt"></span>
+                                </a>
+                            </li>
+                
+                            <!-- Dropdown Profil User -->
                             @auth
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fas fa-user"></i>
+                                    <i class="fas fa-user-circle"></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
-                                    <li>
+                                    {{-- <li>
                                         <div class="dropdown-header px-3 py-2">
-                                            <small>Welcome back,</small>
-                                            <div class="fw-bold">User Name</div>
+                                            <small>Selamat datang,</small>
+                                            <div class="fw-bold text-truncate">{{ Auth::user()->name }}</div>
                                         </div>
-                                    </li>
+                                    </li> --}}
+                                    {{-- <li><hr class="dropdown-divider"></li> --}}
                                     <li>
-                                        <a class="dropdown-item" href="#">
-                                            <i class="fas fa-user me-2"></i> Profile
+                                        <a class="dropdown-item" href="{{ route('user.profil') }}">
+                                        Profil Saya
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#">
-                                            <i class="fas fa-shopping-bag me-2"></i> Orders
+                                        <a class="dropdown-item" href="{{ route('user.history') }}">
+                                        Riwayat Pesanan
+                                            <span class="badge bg-danger float-end">5</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#"> 
-                                            <i class="fas fa-heart me-2"></i> Wishlist
+                                        <a class="dropdown-item" href="{{ route('logout') }}">
+                                        Logout
                                         </a>
                                     </li>
-                                    <li><a class="dropdown-item" href="{{ route('logout') }}">
-                                        <i class="fas fa-sign-out-alt me-2"></i> Logout</a>
-                                    </li>
-                                   
                                 </ul>
                             </li>   
                             @endauth
-                            
-
                         </ul>
                     </div>
                 </div>
@@ -171,11 +179,14 @@
         </div>
     </header>
     <!-- Header Section End -->
-
+    @yield('profil')
     @yield('home')
     @yield('kategori')
     @yield('about')
     @yield('contact')
+    @yield('keranjang')
+    @yield('history')
+    @yield('wishlist')
 
 
 <!-- Footer Section Begin -->
@@ -185,65 +196,92 @@
             <div class="col-lg-4 col-md-6 col-sm-7">
                 <div class="footer__about">
                     <div class="footer__logo">
-                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                        <a href="./index.html">
+                            <img src="https://beritawarganet.com/wp-content/uploads/2022/08/Logo-Kabupaten-Majene.png" 
+                                 alt="Logo Majene" 
+                                 style="max-height: 50px; width: auto;">
+                        </a>
                     </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                    cilisis.</p>
+                    <p>Toko online terpercaya di Majene. Menyediakan berbagai produk berkualitas dengan pelayanan terbaik untuk masyarakat Majene.</p>
                     <div class="footer__payment">
-                        <a href="#"><img src="{{ asset('img/payment/payment-1.png') }}" alt=""></a>
-                        <a href="#"><img src="{{ asset('img/payment/payment-2.png') }}" alt=""></a>
-                        <a href="#"><img src="{{ asset('img/payment/payment-3.png') }}" alt=""></a>
-                        <a href="#"><img src="{{ asset('img/payment/payment-4.png') }}" alt=""></a>
-                        <a href="#"><img src="{{ asset('img/payment/payment-5.png') }}" alt=""></a>
+                        <div class="cod-badge">
+                            <i class="fa fa-money"></i>
+                            <span>Cash on Delivery (COD)</span>
+                        </div>
+                        <div class="payment-desc">
+                            <small>Bayar ketika pesanan sampai di tempat Anda</small>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-2 col-md-3 col-sm-5">
                 <div class="footer__widget">
-                    <h6>Quick links</h6>
+                    <h6>Tautan Cepat</h6>
                     <ul>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Blogs</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">FAQ</a></li>
+                        <li>
+                            <a href="{{route ('user.dashboard')}}">Home</a>
+                        </li>
+                        <li>
+                            <a href="{{route ('user.umkm')}}">umkm</a>
+                        </li>
+                        <li>
+                            <a href="{{route ('user.about')}}">About</a>
+                        </li>
+                        <li>
+                            <a href="{{route ('user.contact')}}">Contact</a>
+                        </li>
                     </ul>
                 </div>
             </div>
             <div class="col-lg-2 col-md-3 col-sm-4">
                 <div class="footer__widget">
-                    <h6>Account</h6>
+                    <h6>Akun</h6>
                     <ul>
-                        <li><a href="#">My Account</a></li>
-                        <li><a href="#">Orders Tracking</a></li>
-                        <li><a href="#">Checkout</a></li>
-                        <li><a href="#">Wishlist</a></li>
+                        <li>
+                            <a href="{{ route('user.profil') }}">
+                            Profil Saya
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('user.keranjang') }}">Keranjang
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('user.wishlist') }}">
+                                Wishlist
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('user.history') }}">
+                            Riwayat Pesanan
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
             <div class="col-lg-4 col-md-8 col-sm-8">
                 <div class="footer__newslatter">
                     <h6>NEWSLETTER</h6>
+                    <p>Berlangganan untuk mendapatkan promo dan update terbaru</p>
                     <form action="#">
-                        <input type="text" placeholder="Email">
-                        <button type="submit" class="site-btn">Subscribe</button>
+                        <input type="text" placeholder="Alamat Email">
+                        <button type="submit" class="site-btn">Berlangganan</button>
                     </form>
                     <div class="footer__social">
                         <a href="#"><i class="fa fa-facebook"></i></a>
                         <a href="#"><i class="fa fa-twitter"></i></a>
                         <a href="#"><i class="fa fa-youtube-play"></i></a>
                         <a href="#"><i class="fa fa-instagram"></i></a>
-                        <a href="#"><i class="fa fa-pinterest"></i></a>
+                        <a href="#"><i class="fa fa-whatsapp"></i></a>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 <div class="footer__copyright__text">
-                    <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+                    <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> All rights reserved | UMKM Majene</p>
                 </div>
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             </div>
         </div>
     </div>

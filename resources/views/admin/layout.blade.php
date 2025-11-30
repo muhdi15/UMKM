@@ -139,7 +139,7 @@
             <i class='bx bxs-user-badge'></i> Manajemen Seller
         </a>
 
-        <a href="#" 
+        <a href="{{ route('admin.konsumen')}}" 
            class="nav-link {{ request()->routeIs('admin.customers') ? 'active' : '' }}">
             <i class='bx bxs-user'></i> Manajemen Konsumen
         </a>
@@ -159,7 +159,7 @@
             <i class='bx bxs-cart-alt'></i> Pesanan
         </a>
 
-        <a href="#" 
+        <a href="{{route('admin.laporan')}}" 
            class="nav-link {{ request()->routeIs('admin.reports') ? 'active' : '' }}">
             <i class='bx bxs-bar-chart-alt-2'></i> Laporan
         </a>

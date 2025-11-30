@@ -67,6 +67,22 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::post('/kategori/store', [MasterController::class, 'kategoriStore'])->name('kategori.store');
     Route::put('/kategori/update/{id}', [MasterController::class, 'kategoriUpdate'])->name('kategori.update');
     Route::delete('/kategori/destroy/{id}', [MasterController::class, 'kategoriDestroy'])->name('kategori.destroy');
+
+
+    //konsumen
+    Route::get('/konsumen', [MasterController::class, 'konsumen'])->name('admin.konsumen');
+    Route::post('/konsumen/{id}/approve', [MasterController::class, 'approveKonsumen'])->name('admin.konsumen.approve');
+    Route::delete('/konsumen/{id}', [MasterController::class, 'destroyKonsumen'])->name('admin.konsumen.destroy');
+
+    //laporan
+    Route::get('/laporan', [MasterController::class, 'laporanindex'])->name('admin.laporan');
+    Route::get('/products', [MasterController::class, 'productsReport'])->name('admin.laporan.products');
+    Route::get('/customers', [MasterController::class, 'customersReport'])->name('admin.laporan.customers');
+    Route::post('/export', [MasterController::class, 'export'])->name('admin.laporan.export');
+    Route::get('/sales-chart', [MasterController::class, 'salesChartData'])->name('admin.laporan.sales-chart');
+    Route::get('/dashboard-stats', [MasterController::class, 'dashboardStats'])->name('admin.laporan.dashboard-stats');
+
+    
 });
 
 // ===================================
@@ -83,6 +99,10 @@ Route::middleware(['auth', 'role:user'])->prefix('user')->group(function () {
     Route::get('/umkm',[Pembeli::class,'kategori'])->name('user.umkm');
     Route::get('/about',[Pembeli::class,'about'])->name('user.about');
     Route::get('/contact',[Pembeli::class,'contact'])->name('user.contact');
+    Route::get('/keranjang',[Pembeli::class,'keranjang'])->name('user.keranjang');
+    Route::get('/history',[Pembeli::class,'history'])->name('user.history');
+    Route::get('/wishlist',[Pembeli::class,'wishlist'])->name('user.wishlist');
+    Route::get('/profil',[Pembeli::class,'profil'])->name('user.profil');
     
 
 });  

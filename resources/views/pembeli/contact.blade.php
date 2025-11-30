@@ -1,4 +1,5 @@
 @extends('pembeli.index')
+@section('title', 'Contact')
 
 @section('contact')
         <!-- Contact Section Begin -->

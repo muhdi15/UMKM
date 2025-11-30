@@ -292,6 +292,24 @@ class MasterController extends Controller
         return redirect()->route('kategori.index')->with('success', 'Kategori berhasil dihapus!');
     }
 
+    public function konsumen(Request $request)
+    {
+        $query = User::where('role_id', 3)->withCount(['orders', 'reviews']);
+
+        // Search functionality
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%");
+            });
+        }
+
+        $customers = $query->latest()->paginate(10);
+
+        return view('admin.manajemen.konsumen', compact('customers'));
+    }
+
 
 
 

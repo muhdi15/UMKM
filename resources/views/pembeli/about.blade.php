@@ -1,4 +1,6 @@
 @extends('pembeli.index')
+
+@section('title', 'About')
 @section('about')
 
 <style>
