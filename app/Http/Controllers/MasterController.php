@@ -65,24 +65,42 @@ class MasterController extends Controller
     public function sellerUpdateStatus($id, $status)
     {
         $seller = Seller::findOrFail($id);
+        $user = $seller->user; // ambil user terkait seller
 
+        // Validasi status seller
         $validStatuses = ['aktif', 'nonaktif', 'ditolak'];
         if (!in_array($status, $validStatuses)) {
             return redirect()->back()->with('error', 'Status tidak valid.');
         }
 
+        // update status seller
         $seller->status = $status;
         $seller->save();
 
+        // --- Tambahan: Update status user sesuai status seller ---
+        if ($user) {
+            // mapping status seller -> status user
+            $mappedStatus = match ($status) {
+                'aktif'     => 'accepted',
+                'nonaktif'  => 'pending',
+                'ditolak'   => 'denied',
+            };
+
+            $user->status = $mappedStatus;
+            $user->save();
+        }
+
+        // pesan sukses
         $msg = match ($status) {
-            'aktif' => 'Seller berhasil diaktifkan.',
-            'nonaktif' => 'Seller telah dinonaktifkan.',
-            'ditolak' => 'Pendaftaran seller ditolak.',
+            'aktif'     => 'Seller berhasil diaktifkan.',
+            'nonaktif'  => 'Seller telah dinonaktifkan.',
+            'ditolak'   => 'Pendaftaran seller ditolak.',
         };
 
         return redirect()->route('admin.seller.show', $seller->id)
             ->with('success', $msg);
     }
+
 
 
     public function sellerDestroy($id)
@@ -299,9 +317,9 @@ class MasterController extends Controller
         // Search functionality
         if ($request->has('search') && $request->search != '') {
             $search = $request->search;
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('email', 'like', "%{$search}%");
+                    ->orWhere('email', 'like', "%{$search}%");
             });
         }
 

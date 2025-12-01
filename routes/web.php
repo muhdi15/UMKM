@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MasterController;
 use App\Http\Controllers\Pembeli;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controller\SellerController;
+use App\Http\Controllers\SellerController;
 use App\Models\Review;
 
 
@@ -84,8 +84,6 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::post('/export', [MasterController::class, 'export'])->name('admin.laporan.export');
     Route::get('/sales-chart', [MasterController::class, 'salesChartData'])->name('admin.laporan.sales-chart');
     Route::get('/dashboard-stats', [MasterController::class, 'dashboardStats'])->name('admin.laporan.dashboard-stats');
-
-    
 });
 
 // ===================================
@@ -93,9 +91,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
 // ===================================
 Route::middleware(['auth', 'role:seller'])->prefix('seller')->group(function () {
 
-     Route::get('/dashboard', [App\Http\Controllers\SellerController::class, 'dashboard'])->name('seller.dashboard');
+    Route::get('/dashboard', [App\Http\Controllers\SellerController::class, 'dashboard'])->name('seller.dashboard');
 
-      // Profile Toko
+    // Profile Toko
     Route::get('/profile', [App\Http\Controllers\SellerController::class, 'profile'])
         ->name('seller.profile');
 
@@ -118,12 +116,13 @@ Route::middleware(['auth', 'role:seller'])->prefix('seller')->group(function () 
     Route::post('/orders/{id}/status', [App\Http\Controllers\SellerController::class, 'updateOrderStatus'])->name('orders.updateStatus');
 
     //review
-    Route::get('/reviews', [SellerController::class, 'reviews'])->name('reviews');  
+    Route::get('/reviews', [App\Http\Controllers\SellerController::class, 'reviews'])->name('reviews');
 
-
-
-    
-
+    //report
+    Route::get('/reports', [SellerController::class, 'reports'])->name('reports');
+    Route::get('/reports/sales', [SellerController::class, 'reportSales'])->name('seller.reports.sales');
+    Route::get('/reports/stock', [SellerController::class, 'reportStock'])->name('seller.reports.stock');
+    Route::get('/reports/payments', [SellerController::class, 'reportPayments'])->name('seller.reports.payments');
 });
 
 // ===================================
@@ -131,14 +130,12 @@ Route::middleware(['auth', 'role:seller'])->prefix('seller')->group(function () 
 // ===================================
 Route::middleware(['auth', 'role:user'])->prefix('user')->group(function () {
     Route::get('/umkm', [Pembeli::class, 'kategori'])->name('user.umkm');
-    Route::get('/home',[Pembeli::class,'userDashboard'])->name('user.dashboard');
-    Route::get('/umkm',[Pembeli::class,'kategori'])->name('user.umkm');
-    Route::get('/about',[Pembeli::class,'about'])->name('user.about');
-    Route::get('/contact',[Pembeli::class,'contact'])->name('user.contact');
-    Route::get('/keranjang',[Pembeli::class,'keranjang'])->name('user.keranjang');
-    Route::get('/history',[Pembeli::class,'history'])->name('user.history');
-    Route::get('/wishlist',[Pembeli::class,'wishlist'])->name('user.wishlist');
-    Route::get('/profil',[Pembeli::class,'profil'])->name('user.profil');
-    
-
-});  
+    Route::get('/home', [Pembeli::class, 'userDashboard'])->name('user.dashboard');
+    Route::get('/umkm', [Pembeli::class, 'kategori'])->name('user.umkm');
+    Route::get('/about', [Pembeli::class, 'about'])->name('user.about');
+    Route::get('/contact', [Pembeli::class, 'contact'])->name('user.contact');
+    Route::get('/keranjang', [Pembeli::class, 'keranjang'])->name('user.keranjang');
+    Route::get('/history', [Pembeli::class, 'history'])->name('user.history');
+    Route::get('/wishlist', [Pembeli::class, 'wishlist'])->name('user.wishlist');
+    Route::get('/profil', [Pembeli::class, 'profil'])->name('user.profil');
+});

@@ -125,7 +125,7 @@
                 <i class="fa-solid fa-star"></i> Ulasan
             </a>
 
-            <a href="" class="@yield('menu-reports')">
+            <a href="{{ route('reports')}}" class="@yield('menu-reports')">
                 <i class="fa-solid fa-file-invoice"></i> Laporan
             </a>
 
@@ -144,7 +144,7 @@
 
             <div class="dropdown profile-dropdown">
                 <a href="#" data-bs-toggle="dropdown">
-                    <img src="{{ Auth::user()->seller->foto_toko ?? 'https://via.placeholder.com/150' }}" alt="Profile">
+                    <img src="{{ asset(Auth::user()->seller->foto_toko ?? 'https://via.placeholder.com/150') }}" alt="Profile">
                 </a>
 
                 <ul class="dropdown-menu dropdown-menu-end">
