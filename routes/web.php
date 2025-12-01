@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MasterController;
 use App\Http\Controllers\Pembeli;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controller\SellerController;
+use App\Models\Review;
+
 
 Route::get('/', function () {
     // Jika belum login, arahkan langsung ke halaman pembeli.home
@@ -88,7 +91,40 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
 // ===================================
 // SELLER ROUTE
 // ===================================
-Route::middleware(['auth', 'role:seller'])->prefix('seller')->group(function () {});
+Route::middleware(['auth', 'role:seller'])->prefix('seller')->group(function () {
+
+     Route::get('/dashboard', [App\Http\Controllers\SellerController::class, 'dashboard'])->name('seller.dashboard');
+
+      // Profile Toko
+    Route::get('/profile', [App\Http\Controllers\SellerController::class, 'profile'])
+        ->name('seller.profile');
+
+    Route::post('/profile/update', [App\Http\Controllers\SellerController::class, 'updateProfile'])
+        ->name('seller.profile.update');
+
+
+    // Produk
+    Route::get('/products', [App\Http\Controllers\SellerController::class, 'products'])->name('seller.products');
+    Route::get('/products/create', [App\Http\Controllers\SellerController::class, 'createProduct'])->name('seller.products.create');
+    Route::post('/products/store', [App\Http\Controllers\SellerController::class, 'storeProduct'])->name('seller.products.store');
+    Route::get('/products/{id}/edit', [App\Http\Controllers\SellerController::class, 'editProduct'])->name('seller.products.edit');
+    Route::post('/products/{id}/update', [App\Http\Controllers\SellerController::class, 'updateProduct'])->name('seller.products.update');
+    Route::delete('/products/{id}/delete', [App\Http\Controllers\SellerController::class, 'deleteProduct'])->name('seller.products.delete');
+
+
+    //Order
+    Route::get('/orders', [App\Http\Controllers\SellerController::class, 'orders'])->name('seller.orders');
+    Route::get('/orders/{id}', [App\Http\Controllers\SellerController::class, 'orderDetail'])->name('orders.detail');
+    Route::post('/orders/{id}/status', [App\Http\Controllers\SellerController::class, 'updateOrderStatus'])->name('orders.updateStatus');
+
+    //review
+    Route::get('/reviews', [SellerController::class, 'reviews'])->name('reviews');  
+
+
+
+    
+
+});
 
 // ===================================
 // USER (PEMBELI) ROUTE
