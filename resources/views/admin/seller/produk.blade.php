@@ -91,7 +91,7 @@
                                 <td class="text-center text-muted">{{ $produk->firstItem() + $index }}</td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <img src="{{ $item->gambar ? asset('storage/'.$item->gambar) : 'https://cdn-icons-png.flaticon.com/512/785/785822.png' }}" 
+                                        <img src="{{ asset($item->foto)}}" 
                                             class="rounded-3 border me-3 shadow-sm" width="52" height="52" style="object-fit: cover;">
                                         <div>
                                             <div class="fw-semibold text-dark">{{ $item->nama_produk }}</div>
@@ -114,7 +114,7 @@
                                 <td><small>{{ $item->created_at->format('d M Y') }}</small></td>
                                 <td class="text-center">
                                     <div class="btn-group" role="group">
-                                        <a href="#" class="btn btn-sm btn-info text-white" data-bs-toggle="tooltip" title="Lihat Detail">
+                                        <a href="{{ route('admin.produk.detail', $item->id) }}" class="btn btn-sm btn-info text-white" data-bs-toggle="tooltip" title="Lihat Detail">
                                             <i class="bx bx-show"></i>
                                         </a>
                                         <form action="{{ route('produk.destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus produk ini?')">

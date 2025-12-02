@@ -51,7 +51,7 @@
                 <label class="form-label">Foto Produk</label>
                 <input type="file" name="foto" class="form-control">
                 @if($product->foto)
-                    <img src="{{ $product->foto }}" width="100" class="mt-2" style="object-fit: cover;">
+                    <img src="{{ asset($product->foto) }}" width="100" class="mt-2" style="object-fit: cover;">
                 @endif
             </div>
 

@@ -164,6 +164,15 @@ class MasterController extends Controller
         return redirect()->back()->with('success', 'Produk berhasil dihapus.');
     }
 
+    public function detailProduk($id)
+    {
+        $product = Product::with(['seller.user', 'category'])->findOrFail($id);
+        $categories = Category::all();
+
+        return view('admin.seller.detail-produk', compact('product', 'categories'));
+    }
+
+
 
 
 

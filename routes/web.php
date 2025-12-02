@@ -64,6 +64,13 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::get('/produk', [MasterController::class, 'produkSeller'])->name('produk');
     Route::delete('/produk/{id}', [MasterController::class, 'destroyProdukSeller'])->name('produk.destroy');
 
+    Route::get('/produk/{id}/detail', [MasterController::class, 'detailProduk'])
+        ->name('admin.produk.detail');
+
+    // Update produk
+    Route::put('/produk/{id}/update', [MasterController::class, 'updateProduk'])
+        ->name('admin.produk.update');
+
 
     //kategory
     Route::get('/kategori', [MasterController::class, 'kategoriIndex'])->name('kategori.index');

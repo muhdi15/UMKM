@@ -39,7 +39,7 @@
                         <td>{{ $produk->firstItem() + $index }}</td>
                         <td>
                             <div class="d-flex align-items-center">
-                                <img src="{{ $item->foto ?? 'https://via.placeholder.com/50' }}" width="50" height="50" class="rounded me-2" style="object-fit: cover;">
+                                <img src="{{asset($item->foto)}}" width="50" height="50" class="rounded me-2" style="object-fit: cover;">
                                 <div>{{ $item->nama_produk }}</div>
                             </div>
                         </td>

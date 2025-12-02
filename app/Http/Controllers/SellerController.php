@@ -123,7 +123,7 @@ class SellerController extends Controller
             $data['foto'] = 'storage/foto_produk/' . $filename;
         }
 
-        Product::create($data);
+        Product::create($data);    
 
         return redirect()->route('seller.products')->with('success', 'Produk berhasil ditambahkan.');
     }
@@ -161,7 +161,7 @@ class SellerController extends Controller
         if ($request->hasFile('foto')) {
             $file = $request->file('foto');
             $filename = 'produk_' . time() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/foto_produk', $filename);
+            $file->storeAs('foto_produk',$filename,'public');
             $data['foto'] = 'storage/foto_produk/' . $filename;
         }
 
