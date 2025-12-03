@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Order;
 use App\Models\Category;
 use App\Models\Seller;
+use App\Models\OrderDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -48,6 +49,98 @@ class MasterController extends Controller
             'recentOrders'
         ));
     }
+
+
+
+
+    public function adminOrders(Request $request)
+    {
+        $sellers = Seller::with('user')->orderBy('id', 'DESC')->get();
+
+        $orders = Order::with(['user', 'seller.user'])
+            ->when($request->seller_id, function ($q) use ($request) {
+                $q->where('seller_id', $request->seller_id);
+            })
+            ->orderBy('created_at', 'DESC')
+            ->paginate(10);
+
+        return view('admin.orders.index', compact('orders', 'sellers'));
+    }
+
+    public function adminOrderDetail($id)
+    {
+        $order = Order::with(['user', 'seller.user', 'details.product'])
+            ->findOrFail($id);
+
+        return view('admin.orders.detail', compact('order'));
+    }
+
+    public function laporanIndex()
+    {
+        $sellers = Seller::with('user')
+            ->orderBy('nama_toko')
+            ->get();
+
+        return view('admin.laporan.index', compact('sellers'));
+    }
+
+    public function laporanFilter(Request $request)
+    {
+        $request->validate([
+            'seller_id' => 'nullable|exists:sellers,id',
+            'bulan' => 'required|integer|min:1|max:12',
+            'tahun' => 'required|integer|min:2020|max:2100'
+        ]);
+
+        $sellerId = $request->seller_id;
+        $bulan    = $request->bulan;
+        $tahun    = $request->tahun;
+
+        $query = Order::with(['user', 'seller.user'])
+            ->whereMonth('created_at', $bulan)
+            ->whereYear('created_at', $tahun);
+
+        if ($sellerId) {
+            $query->where('seller_id', $sellerId);
+        }
+
+        $orders = $query->orderBy('created_at', 'DESC')->get();
+
+        // Hitung KPI laporan
+        $totalPesanan  = $orders->count();
+        $totalPendapatan = $orders->where('status_pembayaran', 'dibayar')->sum('total_harga');
+        $totalProdukTerjual = OrderDetail::whereIn('order_id', $orders->pluck('id'))->sum('quantity');
+
+        // Untuk kembali ke view
+        $sellers = Seller::orderBy('nama_toko')->get();
+
+        return view('admin.laporan.index', compact(
+            'sellers',
+            'orders',
+            'totalPesanan',
+            'totalPendapatan',
+            'totalProdukTerjual',
+            'bulan',
+            'tahun',
+            'sellerId'
+        ));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // === SELLER MANAGEMENT ===
     public function sellerIndex()
@@ -222,37 +315,86 @@ class MasterController extends Controller
         return view('admin.profile.index', compact('user'));
     }
 
+    // public function profileUpdate(Request $request)
+    // {
+    //     $user = auth()->user();
+
+    //     $request->validate([
+    //         'name' => 'required|string|max:255',
+    //         'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+    //         'password' => 'nullable|string|min:6|confirmed',
+    //         'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    //     ]);
+
+    //     $user->name = $request->name;
+    //     $user->email = $request->email;
+
+    //     if ($request->password) {
+    //         $user->password = bcrypt($request->password);
+    //     }
+
+    //     if ($request->hasFile('foto')) {
+    //         // Hapus foto lama jika ada
+    //         if ($user->foto && file_exists(storage_path('app/public/' . $user->foto))) {
+    //             unlink(storage_path('app/public/' . $user->foto));
+    //         }
+    //         $path = $request->file('foto')->store('foto_admin', 'public');
+    //         $user->foto = $path;
+    //     }
+
+    //     $user->save();
+
+    //     return redirect()->route('admin.profile')->with('success', 'Profil berhasil diperbarui.');
+    // }
+
     public function profileUpdate(Request $request)
     {
         $user = auth()->user();
 
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
-            'password' => 'nullable|string|min:6|confirmed',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'name'      => 'required|string|max:255',
+            'email'     => 'required|email|max:255|unique:users,email,' . $user->id,
+            'password'  => 'nullable|string|min:6|confirmed',
+            'foto'      => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $user->name = $request->name;
+        // Update nama dan email
+        $user->name  = $request->name;
         $user->email = $request->email;
 
+        // Update password jika diisi
         if ($request->password) {
             $user->password = bcrypt($request->password);
         }
 
+        // Update foto jika ada upload baru
         if ($request->hasFile('foto')) {
+
             // Hapus foto lama jika ada
-            if ($user->foto && file_exists(storage_path('app/public/' . $user->foto))) {
-                unlink(storage_path('app/public/' . $user->foto));
+            if ($user->foto) {
+                $oldPath = public_path($user->foto);
+
+                if (file_exists($oldPath)) {
+                    @unlink($oldPath);
+                }
             }
-            $path = $request->file('foto')->store('foto_admin', 'public');
-            $user->foto = $path;
+
+            // Proses upload foto baru
+            $file = $request->file('foto');
+            $filename = 'admin_' . time() . '.' . $file->getClientOriginalExtension();
+
+            // Simpan ke storage/public/foto_admin
+            $file->storeAs('foto_admin', $filename, 'public');
+
+            // Path yang bisa dipakai Blade
+            $user->foto = 'storage/foto_admin/' . $filename;
         }
 
         $user->save();
 
         return redirect()->route('admin.profile')->with('success', 'Profil berhasil diperbarui.');
     }
+
 
 
     //Kategori
@@ -336,6 +478,35 @@ class MasterController extends Controller
 
         return view('admin.manajemen.konsumen', compact('customers'));
     }
+
+
+    public function approveKonsumen($id)
+    {
+        $customer = User::where('role_id', 3)->findOrFail($id);
+
+        $customer->status = 'accepted';
+        $customer->save();
+
+        return back()->with('success', 'Konsumen berhasil disetujui.');
+    }
+
+
+    public function deleteKonsumen($id)
+    {
+        $customer = User::where('role_id', 3)->findOrFail($id);
+
+        // Hapus relasi-relasi jika perlu
+        $customer->orders()->delete();
+        $customer->reviews()->delete();
+
+        $customer->delete();
+
+        return back()->with('success', 'Konsumen berhasil dihapus.');
+    }
+
+
+
+
 
 
 

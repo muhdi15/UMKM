@@ -154,7 +154,7 @@
             <i class='bx bxs-category'></i> Kategori
         </a>
 
-        <a href="#" 
+        <a href="{{ route('admin.orders') }}" 
            class="nav-link {{ request()->routeIs('admin.orders') ? 'active' : '' }}">
             <i class='bx bxs-cart-alt'></i> Pesanan
         </a>
@@ -162,11 +162,6 @@
         <a href="{{route('admin.laporan')}}" 
            class="nav-link {{ request()->routeIs('admin.reports') ? 'active' : '' }}">
             <i class='bx bxs-bar-chart-alt-2'></i> Laporan
-        </a>
-
-        <a href="#" 
-           class="nav-link {{ request()->routeIs('admin.settings') ? 'active' : '' }}">
-            <i class='bx bxs-cog'></i> Pengaturan
         </a>
     </nav>
 </div>

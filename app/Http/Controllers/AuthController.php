@@ -44,6 +44,14 @@ class AuthController extends Controller
             return back()->with('error', 'Akun anda ditolak oleh admin.');
         }
 
+        if ($user->role->name === 'user' && $user->status === 'pending') {
+            return back()->with('error', 'Akun anda ditolak oleh admin.');
+        }
+
+        if ($user->role->name === 'user' && $user->status === 'denied') {
+            return back()->with('error', 'Akun anda ditolak oleh admin.');
+        }
+
         Auth::login($user);
 
         // 🔥 Arahkan ke dashboard sesuai role

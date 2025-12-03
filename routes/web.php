@@ -80,17 +80,31 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
 
 
     //konsumen
+    // List konsumen
     Route::get('/konsumen', [MasterController::class, 'konsumen'])->name('admin.konsumen');
-    Route::post('/konsumen/{id}/approve', [MasterController::class, 'approveKonsumen'])->name('admin.konsumen.approve');
-    Route::delete('/konsumen/{id}', [MasterController::class, 'destroyKonsumen'])->name('admin.konsumen.destroy');
+
+    // Approve konsumen
+    Route::post('/konsumen/approve/{id}', [MasterController::class, 'approveKonsumen'])
+        ->name('admin.konsumen.approve');
+
+    // Delete konsumen
+    Route::delete('/konsumen/delete/{id}', [MasterController::class, 'deleteKonsumen'])
+        ->name('admin.konsumen.destroy');
+
+    Route::get('/orders', [MasterController::class, 'adminOrders'])
+        ->name('admin.orders');
+
+    Route::get('/orders/{id}', [MasterController::class, 'adminOrderDetail'])
+        ->name('admin.orders.detail');
 
     //laporan
-    Route::get('/laporan', [MasterController::class, 'laporanindex'])->name('admin.laporan');
-    Route::get('/products', [MasterController::class, 'productsReport'])->name('admin.laporan.products');
-    Route::get('/customers', [MasterController::class, 'customersReport'])->name('admin.laporan.customers');
-    Route::post('/export', [MasterController::class, 'export'])->name('admin.laporan.export');
-    Route::get('/sales-chart', [MasterController::class, 'salesChartData'])->name('admin.laporan.sales-chart');
-    Route::get('/dashboard-stats', [MasterController::class, 'dashboardStats'])->name('admin.laporan.dashboard-stats');
+    // Halaman laporan utama
+    Route::get('/laporan', [MasterController::class, 'laporanIndex'])
+        ->name('admin.laporan');
+
+    // Proses filter laporan
+    Route::get('/laporan/filter', [MasterController::class, 'laporanFilter'])
+        ->name('admin.laporan.filter');
 });
 
 // ===================================
